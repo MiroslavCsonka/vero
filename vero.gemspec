@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
   s.authors  = ['James Lamont']
 
   dependencies = [
-    [:development, 'rails', "~> 3.0"],
+    [:development, 'rails', "~> 4.2.10"],
     [:development, 'rspec'],
-    [:development, 'delayed_job', "~> 3.0.0"],
+    [:development, 'delayed_job'],
     [:development, 'delayed_job_active_record'],
     [:development, 'resque'],
     [:development, 'sidekiq', "~> 3.5.1"],
