@@ -3,13 +3,13 @@
 require 'spec_helper'
 
 describe Vero::Api::Workers::Events::TrackAPI do
-  let(:payload) {
+  let(:payload) do
     {
       auth_token: 'abcd',
       identity: { email: 'test@test.com' },
       event_name: 'test_event'
     }
-  }
+  end
 
   subject { Vero::Api::Workers::Events::TrackAPI.new('https://api.getvero.com', payload) }
 

@@ -8,7 +8,7 @@ module Vero
     module Workers
       class BaseAPI
         API_TIMEOUT ||= 60
-        ALLOWED_HTTP_METHODS ||= %i[post put]
+        ALLOWED_HTTP_METHODS ||= %i[post put].freeze
 
         attr_accessor :domain
         attr_reader :options

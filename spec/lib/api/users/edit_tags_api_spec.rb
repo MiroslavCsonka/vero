@@ -3,13 +3,13 @@
 require 'spec_helper'
 
 describe Vero::Api::Workers::Users::EditTagsAPI do
-  let(:payload) {
+  let(:payload) do
     {
       auth_token: 'abcd',
       id: 'test@test.com',
       add: ['test']
     }
-  }
+  end
 
   subject { Vero::Api::Workers::Users::EditTagsAPI.new('https://api.getvero.com', payload) }
 
@@ -60,7 +60,7 @@ describe Vero::Api::Workers::Users::EditTagsAPI do
         receive(:execute).with(
           method: :put,
           url: 'https://api.getvero.com/api/v2/users/tags/edit.json',
-          payload: { auth_token: 'abcd', id: 'test@test.com', add: ['test'] }.to_json, 
+          payload: { auth_token: 'abcd', id: 'test@test.com', add: ['test'] }.to_json,
           headers: { content_type: :json, accept: :json },
           timeout: 60
         )

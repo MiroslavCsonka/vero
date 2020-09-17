@@ -3,13 +3,13 @@
 require 'spec_helper'
 
 describe Vero::Api::Workers::Users::ReidentifyAPI do
-  let(:payload) {
+  let(:payload) do
     {
       auth_token: 'abcd',
       id: 'test@test.com',
       new_id: 'test2@test.com'
     }
-  }
+  end
 
   subject { Vero::Api::Workers::Users::ReidentifyAPI.new('https://api.getvero.com', payload) }
 
@@ -42,7 +42,7 @@ describe Vero::Api::Workers::Users::ReidentifyAPI do
       expect(RestClient::Request).to(
         receive(:execute).with(
           method: :put,
-          url: 'https://api.getvero.com/api/v2/users/reidentify.json', 
+          url: 'https://api.getvero.com/api/v2/users/reidentify.json',
           payload: { auth_token: 'abcd', id: 'test@test.com', new_id: 'test2@test.com' }.to_json,
           headers: { content_type: :json, accept: :json },
           timeout: 60

@@ -3,13 +3,13 @@
 require 'spec_helper'
 
 describe Vero::Api::Workers::Users::UnsubscribeAPI do
-  let(:payload) {
+  let(:payload) do
     {
       auth_token: 'abcd',
       email: 'test@test.com',
       changes: { email: 'test@test.com' }
     }
-  }
+  end
 
   subject { Vero::Api::Workers::Users::UnsubscribeAPI.new('https://api.getvero.com', payload) }
 

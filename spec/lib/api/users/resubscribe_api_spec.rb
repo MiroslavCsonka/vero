@@ -3,9 +3,9 @@
 require 'spec_helper'
 
 describe Vero::Api::Workers::Users::ResubscribeAPI do
-  let(:payload) {
+  let(:payload) do
     { auth_token: 'abcd', id: '1234' }
-  }
+  end
 
   subject { Vero::Api::Workers::Users::ResubscribeAPI.new('https://api.getvero.com', payload) }
 
@@ -30,7 +30,7 @@ describe Vero::Api::Workers::Users::ResubscribeAPI do
       expect(RestClient::Request).to(
         receive(:execute).with(
           method: :post,
-          url: 'https://api.getvero.com/api/v2/users/resubscribe.json', 
+          url: 'https://api.getvero.com/api/v2/users/resubscribe.json',
           payload: { auth_token: 'abcd', id: '1234' }.to_json,
           headers: { content_type: :json, accept: :json },
           timeout: 60
