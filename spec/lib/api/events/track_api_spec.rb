@@ -61,7 +61,8 @@ describe Vero::Api::Workers::Events::TrackAPI do
             method: :post,
             url: 'https://api.getvero.com/api/v2/events/track.json',
             payload: { auth_token: 'abcd', identity: { email: 'test@test.com' }, event_name: 'test_event' }.to_json,
-            headers: { content_type: :json, accept: :json }
+            headers: { content_type: :json, accept: :json },
+            timeout: 60
           )
         )
         allow(RestClient::Request).to receive(:execute).and_return(200)

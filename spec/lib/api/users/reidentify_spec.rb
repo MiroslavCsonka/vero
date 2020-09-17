@@ -44,7 +44,8 @@ describe Vero::Api::Workers::Users::ReidentifyAPI do
           method: :put,
           url: 'https://api.getvero.com/api/v2/users/reidentify.json', 
           payload: { auth_token: 'abcd', id: 'test@test.com', new_id: 'test2@test.com' }.to_json,
-          headers: { content_type: :json, accept: :json }
+          headers: { content_type: :json, accept: :json },
+          timeout: 60
         )
       )
       allow(RestClient::Request).to receive(:execute).and_return(200)

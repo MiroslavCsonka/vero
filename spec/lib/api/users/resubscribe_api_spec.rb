@@ -32,7 +32,8 @@ describe Vero::Api::Workers::Users::ResubscribeAPI do
           method: :post,
           url: 'https://api.getvero.com/api/v2/users/resubscribe.json', 
           payload: { auth_token: 'abcd', id: '1234' }.to_json,
-          headers: { content_type: :json, accept: :json }
+          headers: { content_type: :json, accept: :json },
+          timeout: 60
         )
       )
       allow(RestClient::Request).to receive(:execute).and_return(200)

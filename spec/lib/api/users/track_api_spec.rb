@@ -58,7 +58,8 @@ describe Vero::Api::Workers::Users::TrackAPI do
           method: :post,
           url: 'https://api.getvero.com/api/v2/users/track.json',
           payload: { auth_token: 'abcd', identity: { email: 'test@test.com' }, email: 'test@test.com' }.to_json,
-          headers: { content_type: :json, accept: :json }
+          headers: { content_type: :json, accept: :json },
+          timeout: 60
         )
       )
       allow(RestClient::Request).to receive(:execute).and_return(200)

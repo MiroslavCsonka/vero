@@ -7,6 +7,7 @@ module Vero
   module Api
     module Workers
       class BaseAPI
+        API_TIMEOUT ||= 60
         ALLOWED_HTTP_METHODS ||= %i[post put]
 
         attr_accessor :domain
@@ -78,7 +79,8 @@ module Vero
               method: method,
               url: a_url,
               payload: JSON.dump(params),
-              headers: request_content_type
+              headers: request_content_type,
+              timeout: API_TIMEOUT
             )
           end
         end

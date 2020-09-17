@@ -32,7 +32,8 @@ describe Vero::Api::Workers::Users::UnsubscribeAPI do
           method: :post,
           url: 'https://api.getvero.com/api/v2/users/unsubscribe.json',
           payload: { auth_token: 'abcd', email: 'test@test.com', changes: { email: 'test@test.com' } }.to_json,
-          headers: { content_type: :json, accept: :json }
+          headers: { content_type: :json, accept: :json },
+          timeout: 60
         )
       )
       allow(RestClient::Request).to receive(:execute).and_return(200)

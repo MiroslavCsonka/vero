@@ -61,7 +61,8 @@ describe Vero::Api::Workers::Users::EditTagsAPI do
           method: :put,
           url: 'https://api.getvero.com/api/v2/users/tags/edit.json',
           payload: { auth_token: 'abcd', id: 'test@test.com', add: ['test'] }.to_json, 
-          headers: { content_type: :json, accept: :json }
+          headers: { content_type: :json, accept: :json },
+          timeout: 60
         )
       )
       allow(RestClient).to receive(:put).and_return(200)
