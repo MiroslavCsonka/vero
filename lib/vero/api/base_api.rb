@@ -7,6 +7,8 @@ module Vero
   module Api
     module Workers
       class BaseAPI
+        ALLOWED_HTTP_METHODS ||= %i[post put]
+
         attr_accessor :domain
         attr_reader :options
 
@@ -45,6 +47,10 @@ module Vero
           "#{@domain}/api/v2/#{api_url}"
         end
 
+        def http_method
+          raise NotImplementedError
+        end
+
         def api_url
           raise NotImplementedError
         end
@@ -53,14 +59,32 @@ module Vero
           raise "#{self.class.name}#validate! should be overridden"
         end
 
-        def request; end
+        def request
+          do_request(http_method, url, @options)
+        end
+
+        def do_request(method, a_url, params)
+          raise ArgumentError, ":method must be one of the follow: #{ALLOWED_HTTP_METHODS.join(', ')}" unless ALLOWED_HTTP_METHODS.include?(method)
+
+          if method == :get
+            RestClient::Request.execute(
+              method: method,
+              url: a_url,
+              headers: { params: params },
+              timeout: API_TIMEOUT
+            )
+          else
+            RestClient::Request.execute(
+              method: method,
+              url: a_url,
+              payload: JSON.dump(params),
+              headers: request_content_type
+            )
+          end
+        end
 
         def request_content_type
           { content_type: :json, accept: :json }
-        end
-
-        def request_params_as_json
-          JSON.dump(@options)
         end
 
         def options_with_symbolized_keys(val)
