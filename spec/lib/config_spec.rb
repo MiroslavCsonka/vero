@@ -47,7 +47,7 @@ describe Vero::Config do
       config.api_key = nil
       config.secret = nil
       config.development_mode = nil
-      expect(config.request_params).to eq(:_config => { http_timeout: 60 })
+      expect(config.request_params).to eq(_config: { http_timeout: nil })
 
       config.api_key = 'abcd1234'
       config.secret = 'abcd1234'

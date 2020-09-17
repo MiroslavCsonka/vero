@@ -60,7 +60,7 @@ module Vero
       self.logging = false
       self.api_key = nil
       self.secret = nil
-      self.http_timeout = 60
+      self.http_timeout = nil
     end
 
     def update_attributes(attributes = {})
