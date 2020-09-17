@@ -31,8 +31,8 @@ module Vero
         def options=(val)
           new_options = options_with_symbolized_keys(val)
 
-          if (extra_config = new_options.delete(:_config))
-            @http_timeout = extra_config.fetch(:http_timeout, 60)
+          if (extra_config = new_options.delete(:_config)) && extra_config.is_a?(Hash)
+            @http_timeout = extra_config[:http_timeout]
           end
 
           @options = new_options
