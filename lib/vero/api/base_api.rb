@@ -7,7 +7,7 @@ module Vero
   module Api
     module Workers
       class BaseAPI
-        API_TIMEOUT ||= 60
+        DEFAULT_API_TIMEOUT ||= 60
         ALLOWED_HTTP_METHODS ||= %i[post put].freeze
 
         attr_accessor :domain
@@ -29,7 +29,13 @@ module Vero
         end
 
         def options=(val)
-          @options = options_with_symbolized_keys(val)
+          new_options = options_with_symbolized_keys(val)
+
+          if (extra_config = new_options.delete(:_config))
+            @http_timeout = extra_config.fetch(:http_timeout, 60)
+          end
+
+          @options = new_options
         end
 
         protected
@@ -72,7 +78,7 @@ module Vero
               method: method,
               url: a_url,
               headers: { params: params },
-              timeout: API_TIMEOUT
+              timeout: http_timeout
             )
           else
             RestClient::Request.execute(
@@ -80,13 +86,17 @@ module Vero
               url: a_url,
               payload: JSON.dump(params),
               headers: request_content_type,
-              timeout: API_TIMEOUT
+              timeout: http_timeout
             )
           end
         end
 
         def request_content_type
           { content_type: :json, accept: :json }
+        end
+
+        def http_timeout
+          @http_timeout || DEFAULT_API_TIMEOUT
         end
 
         def options_with_symbolized_keys(val)

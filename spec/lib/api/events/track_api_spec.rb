@@ -68,6 +68,20 @@ describe Vero::Api::Workers::Events::TrackAPI do
         allow(RestClient::Request).to receive(:execute).and_return(200)
         subject.send(:request)
       end
+
+      it 'should allow configurable timeout' do
+        expect(RestClient::Request).to(
+          receive(:execute).with(
+            method: :post,
+            url: 'https://api.getvero.com/api/v2/events/track.json',
+            payload: { auth_token: 'abcd', identity: { email: 'test@test.com' }, event_name: 'test_event' }.to_json,
+            headers: { content_type: :json, accept: :json },
+            timeout: 30
+          )
+        )
+        allow(RestClient::Request).to receive(:execute).and_return(200)
+        Vero::Api::Workers::Events::TrackAPI.new('https://api.getvero.com', payload.merge(_config: { http_timeout: 30 })).send(:request)
+      end
     end
   end
 
